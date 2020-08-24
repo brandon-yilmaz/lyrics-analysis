@@ -1,0 +1,155 @@
+import lyricsgenius
+import pandas as pd
+
+url = 'https://chartmasters.org/2020/04/most-successful-artists-by-decade/'
+
+decada_60 = ['The Beatles', 'Elvis Presley',
+             'The Rolling Stones', 'Simon & Garfunkel','Bee Gees',
+             'Bob Dylan' ,'The Doors' ,'Creedence Clearwater Revival' ,
+             'Barbra Streisand' , 'Led Zeppelin', 'Fleetwood Mac', 'Pink Floyd',
+             'Cher' ,'The Jackson 5']
+
+decada_70 = ['Pink Floyd','Led Zeppelin','Queen','Elton John','ABBA',
+             'Rod Stewart','Eagles',
+             'Bob Marley & The Wailers', 'Bee Gees','Fleetwood Mac', 
+             'The Rolling Stones',
+             'Billy Joel',
+             'David Bowie', 'AC/DC', 
+             'Black Sabbath' ,'Aerosmith']
+
+decada_80 = ['Michael Jackson','Madonna','Phil Collins','U2','Queen','Prince',
+             'AC/DC','Bruce Springsteen','Bon Jovi','George Michael','Wham!',
+             'Dire Straits','Metallica','Billy Joel','Journey','Guns N\' Roses',
+             'Whitney Houston','Bryan Adams','Barbra Streisand','The Rolling Stones',
+             'Elton John']
+
+decada_90 = ['Céline Dion','Mariah Carey','Garth Brooks','Whitney Houston',
+             'Nirvana','Michael Jackson', 'Metallica', 'Backstreet Boys',
+             'Madonna','Shania Twain','Guns N\' Roses','Red Hot Chili Peppers',
+             'Alanis Morissette','Oasis', 'Spice Girls','Green Day','The Cranberries',
+             'U2', 'TLC', 'Bon Jovi']
+
+decada_00 = ['Eminem' ,'Linkin Park','Coldplay','Britney Spears','Beyoncé',
+             'P!nk', 'Norah Jones', 'Robbie Williams','Nickelback',
+             'Black Eyed Peas','Alicia Keys','Michael Bublé',
+             'U2','Madonna' ,'Avril Lavigne' ,'Rihanna', 'Lady Gaga',
+             'Usher', 'Shakira']
+
+genius = lyricsgenius.Genius("here_comes_your_token")
+genius.excluded_terms = ["(Remix)", "(Live)","(Bonus)","(Mix)","Live","Remix","live"]
+genius.remove_section_headers = True
+
+lista_artistas_60 = []
+lista_artistas_70 = []
+lista_artistas_80 = []
+lista_artistas_90 = []
+lista_artistas_00 = []
+
+##### LISTA ARTISTAS DECADA 60 ######
+for artist in decada_60:
+    artist = genius.search_artist(artist, max_songs=20, sort="popularity") 
+    lista_artistas_60.append(artist)
+
+
+
+data_60 = {'Artista':[],'Letra':[],'Cancion':[], 'Año':[]}
+
+for grupo in lista_artistas_60:
+    pareado=grupo.songs
+    
+    for cancion in pareado:
+        
+        
+        if (cancion.year == None or cancion.year.find('196') == -1):
+            pass
+        else:
+            data_60['Artista'].append(cancion.artist)
+            data_60['Letra'].append(cancion.lyrics)
+            data_60['Cancion'].append(cancion.title)
+            data_60['Año'].append(cancion.year)
+            
+df_60 = pd.DataFrame(data_60)
+
+##### LISTA ARTISTAS DECADA 70 #####
+for artist in decada_70:
+    artist = genius.search_artist(artist, max_songs=20, sort="popularity") 
+    lista_artistas_70.append(artist)
+    
+data_70 = {'Artista':[],'Letra':[],'Cancion':[], 'Año':[]}    
+    
+for grupo in lista_artistas_70:
+    pareado=grupo.songs
+    for cancion in pareado:
+        
+        if (cancion.year==None or cancion.year.find('197') == -1):
+            pass
+        else:
+            data_70['Artista'].append(cancion.artist)
+            data_70['Letra'].append(cancion.lyrics)
+            data_70['Cancion'].append(cancion.title)
+            data_70['Año'].append(cancion.year)
+            
+df_70 = pd.DataFrame(data_70)   
+    
+##### LISTA ARTISTAS DECADA 80 ######
+for artist in decada_80:
+    artist = genius.search_artist(artist, max_songs=20, sort="popularity") 
+    lista_artistas_80.append(artist)
+    
+data_80 = {'Artista':[],'Letra':[],'Cancion':[], 'Año':[]}    
+    
+for grupo in lista_artistas_80:
+    pareado=grupo.songs
+    for cancion in pareado:
+        
+        if (cancion.year==None or cancion.year.find('198') == -1):
+            pass
+        else:
+            data_80['Artista'].append(cancion.artist)
+            data_80['Letra'].append(cancion.lyrics)
+            data_80['Cancion'].append(cancion.title)
+            data_80['Año'].append(cancion.year)
+            
+df_80 = pd.DataFrame(data_80)
+
+##### LISTA ARTISTAS DECADA 90 ######
+for artist in decada_90:
+    artist = genius.search_artist(artist, max_songs=20, sort="popularity") 
+    lista_artistas_90.append(artist)
+    
+data_90 = {'Artista':[],'Letra':[],'Cancion':[], 'Año':[]}    
+    
+for grupo in lista_artistas_90:
+    pareado=grupo.songs
+    for cancion in pareado:
+        
+        if (cancion.year==None or cancion.year.find('199') == -1):
+            pass
+        else:
+            data_90['Artista'].append(cancion.artist)
+            data_90['Letra'].append(cancion.lyrics)
+            data_90['Cancion'].append(cancion.title)
+            data_90['Año'].append(cancion.year)
+            
+df_90 = pd.DataFrame(data_90)
+
+##### LISTA ARTISTAS DECADA 00 ######
+for artist in decada_00:
+    artist = genius.search_artist(artist, max_songs=20, sort="popularity") 
+    lista_artistas_00.append(artist)
+    
+data_00 = {'Artista':[],'Letra':[],'Cancion':[], 'Año':[]}    
+    
+for grupo in lista_artistas_00:
+    pareado=grupo.songs
+    for cancion in pareado:
+        
+        if (cancion.year==None or cancion.year.find('200') == -1):
+            pass
+        else:
+            data_00['Artista'].append(cancion.artist)
+            data_00['Letra'].append(cancion.lyrics)
+            data_00['Cancion'].append(cancion.title)
+            data_00['Año'].append(cancion.year)
+            
+df_00 = pd.DataFrame(data_00)
